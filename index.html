@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blueprint Community | Live a Purpose-Driven Life</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* CSS Variables for Enhanced Theme */
+        :root {
+            --dark-blue: #1a2332;
+            --medium-blue: #2d3748;
+            --light-beige: #faf8f5;
+            --warm-beige: #f5f1eb;
+            --accent-gold: #c9a96e;
+            --accent-gold-light: #e4d4b4;
+            --text-dark: #1a202c;
+            --text-medium: #4a5568;
+            --text-light: #ffffff;
+            --gradient-primary: linear-gradient(135deg, #1a2332 0%, #2d3748 100%);
+            --gradient-accent: linear-gradient(135deg, #c9a96e 0%, #e4d4b4 100%);
+            --gradient-hero: linear-gradient(135deg, rgba(26, 35, 50, 0.9) 0%, rgba(45, 55, 72, 0.8) 100%);
+            --shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.1);
+            --shadow-strong: 0 20px 60px rgba(0, 0, 0, 0.15);
+            --font-primary: 'Inter', sans-serif;
+            --font-display: 'Playfair Display', serif;
+            --border-radius: 16px;
+            --border-radius-large: 24px;
+        }
+
+        /* General Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            color: var(--text-dark);
+            background-color: var(--light-beige);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Enhanced Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Enhanced Typography */
+        h1, h2, h3 {
+            font-family: var(--font-display);
+            line-height: 1.2;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--gradient-accent);
+            border-radius: 2px;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: var(--text-medium);
+        }
+
+        section {
+            padding: 120px 0;
+            position: relative;
+        }
+
+        /* Floating Elements Background */
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .floating-shape {
+            position: absolute;
+            background: var(--gradient-accent);
+            opacity: 0.03;
+            border-radius: 50%;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .floating-shape:nth-child(1) {
+            width: 200px;
+            height: 200px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-shape:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 15%;
+            animation-delay: -7s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-30px) rotate(120deg); }
+            66% { transform: translateY(20px) rotate(240deg); }
+        }
+
+        /* Enhanced Header */
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 24px 0;
+            z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .main-header.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            padding: 16px 0;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo {
+            height: 48px;
+            width: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        /* Enhanced Hero Section */
+        #hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--text-light);
+            padding: 0 24px;
+            overflow: hidden;
+        }
+
+        .hero-video-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: translate(-50%, -50%) scale(1.0);
+            z-index: -2;
+            animation: slowZoom 40s infinite alternate;
+        }
+        
+        @keyframes slowZoom {
+            to {
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+        }
+
+        #hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-hero);
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            animation: heroFadeIn 1.5s ease-out;
+        }
+
+        .hero-content h1 {
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin: 0 auto 2rem auto;
+            font-weight: 400;
+            opacity: 0.9;
+            color: #e2e8f0;
+        }
+
+        .hero-content .tagline {
+            font-style: italic;
+            font-weight: 500;
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            opacity: 0.8;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: var(--accent-gold-light);
+        }
+
+        @keyframes heroFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Enhanced CTA Button */
+        .cta-button {
+            display: inline-block;
+            background: var(--gradient-accent);
+            color: var(--dark-blue);
+            padding: 18px 40px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 32px rgba(201, 169, 110, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 16px 48px rgba(201, 169, 110, 0.4);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        /* Enhanced About Section */
+        #about {
+            background: linear-gradient(135deg, var(--light-beige) 0%, var(--warm-beige) 100%);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-blue);
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .about-text h3::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 30px;
+            background: var(--gradient-accent);
+            border-radius: 2px;
+        }
+
+        .about-image-container {
+            position: relative;
+        }
+
+        .about-image {
+            width: 100%;
+            border-radius: var(--border-radius-large);
+            box-shadow: var(--shadow-strong);
+            transition: transform 0.4s ease;
+        }
+
+        .about-image:hover {
+            transform: scale(1.02);
+        }
+
+        .about-image-container::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: 20px;
+            bottom: 20px;
+            background: var(--gradient-accent);
+            border-radius: var(--border-radius-large);
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        /* Enhanced Values Section */
+        #values {
+            background: var(--gradient-primary);
+            color: var(--text-light);
+        }
+
+        #values h2 { 
+            color: var(--text-light); 
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .value-item {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            padding: 3rem 2rem;
+            border-radius: var(--border-radius-large);
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .value-item:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .value-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-accent);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+            transform-origin: left;
+        }
+
+        .value-item:hover::before {
+            transform: scaleX(1);
+        }
+
+        .value-item .icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-gold);
+            height: 48px;
+            width: 48px;
+            display: inline-block;
+        }
+
+        .value-item h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--accent-gold-light);
+        }
+
+        .value-item p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+        }
+
+        /* Enhanced Impact Section (Corrected) */
+        #impact {
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            background: linear-gradient(135deg, var(--warm-beige) 0%, var(--light-beige) 100%);
+        }
+
+        .impact-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .impact-text-content {
+            max-width: 800px;
+            margin-bottom: 2rem;
+            z-index: 10;
+        }
+
+        .ripple-area {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            aspect-ratio: 1 / 1;
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .ripple-graphic {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .ripple-svg circle {
+            fill: none;
+            stroke: var(--accent-gold);
+            stroke-width: 2px;
+            transform-origin: center;
+            opacity: 0;
+            animation: ripple-effect 6s infinite cubic-bezier(0.2, 0.4, 0.7, 1);
+        }
+
+        .ripple-svg .ripple-2 { animation-delay: 2s; }
+        .ripple-svg .ripple-3 { animation-delay: 4s; }
+
+        @keyframes ripple-effect {
+            0% { transform: scale(0.2); opacity: 0.8; stroke-width: 4px; }
+            50% { opacity: 0.4; }
+            100% { transform: scale(1.5); opacity: 0; stroke-width: 0.5px; }
+        }
+
+        .ripple-labels {
+            position: relative;
+            z-index: 5;
+            text-align: center;
+        }
+
+        .label-center {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 3rem;
+            border-radius: 50%;
+            width: 280px;
+            height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: var(--shadow-strong);
+            border: 2px solid rgba(201, 169, 110, 0.2);
+            transition: transform 0.4s ease;
+        }
+
+        .label-center:hover { transform: scale(1.05); }
+
+        .label-center strong {
+            font-size: 1.3rem;
+            color: var(--dark-blue);
+            line-height: 1.3;
+            margin-bottom: 0.5rem;
+        }
+
+        .label-center p {
+            margin: 0;
+            font-size: 1rem;
+            color: var(--text-medium);
+            font-style: italic;
+        }
+
+        /* Enhanced Join Section */
+        #join {
+            background: var(--gradient-primary);
+            color: var(--text-light);
+        }
+
+        #join h2 { color: var(--text-light); }
+
+        .join-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .join-content > p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.2rem;
+        }
+
+        .join-steps {
+            list-style: none;
+            margin: 4rem 0;
+            text-align: left;
+            counter-reset: steps-counter;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .join-steps li {
+            position: relative;
+            padding-left: 80px;
+            margin-bottom: 3rem;
+        }
+
+        .join-steps li::before {
+            counter-increment: steps-counter;
+            content: counter(steps-counter);
+            position: absolute;
+            left: 0;
+            top: -5px;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-accent);
+            color: var(--dark-blue);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            box-shadow: 0 8px 24px rgba(201, 169, 110, 0.3);
+        }
+
+        .join-steps li strong {
+            font-size: 1.3rem;
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--accent-gold-light);
+        }
+
+        .join-steps li p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .join-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .join-form input, .join-form textarea {
+            width: 100%;
+            padding: 20px 24px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            font-family: var(--font-primary);
+            font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-light);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .join-form input:focus, .join-form textarea:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 0 0 4px rgba(201, 169, 110, 0.1);
+        }
+
+        .join-form input::placeholder, .join-form textarea::placeholder { color: rgba(255, 255, 255, 0.6); }
+
+        .join-form textarea {
+            min-height: 140px;
+            resize: vertical;
+        }
+
+        .join-form .submit-button {
+            align-self: center;
+            border: none;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        /* Enhanced Footer */
+        footer {
+            background: var(--dark-blue);
+            color: var(--text-light);
+            padding: 60px 0 40px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--accent-gold), transparent);
+            opacity: 0.3;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .footer-logo {
+            height: 42px;
+            filter: brightness(0) invert(1);
+            transition: transform 0.3s ease;
+        }
+
+        .footer-logo:hover { transform: scale(1.1); }
+
+        .footer-container .tagline {
+            font-style: italic;
+            opacity: 0.8;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .social-link a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .social-link a:hover {
+            color: var(--accent-gold-light);
+            transform: translateY(-2px) scale(1.1);
+        }
+
+        .copyright {
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+
+        /* Scroll Reveal Animation (Class added by JS) */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Enhanced Responsive Design */
+        @media(max-width: 1024px) {
+            .about-grid { grid-template-columns: 1fr; gap: 4rem; }
+            .about-text { order: 2; text-align: center; }
+            .about-image-container { order: 1; }
+        }
+
+        @media(max-width: 768px) {
+            section { padding: 80px 0; }
+            .container { padding: 0 20px; }
+            h2 { font-size: 2.2rem; margin-bottom: 2rem; }
+            .hero-content p { font-size: 1.1rem; }
+            .values-grid { grid-template-columns: 1fr; }
+            .ripple-area { max-width: 500px; }
+            .label-center { width: 220px; height: 220px; padding: 2rem; }
+            .label-center strong { font-size: 1.1rem; }
+            .join-steps li { padding-left: 60px; }
+            .join-steps li::before { width: 40px; height: 40px; font-size: 1rem; }
+        }
+
+        @media(max-width: 480px) {
+            .hero-content h1 { font-size: 2.2rem; }
+            .cta-button { padding: 16px 32px; font-size: 1rem; }
+            .value-item { padding: 2rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header" id="main-header">
+        <div class="container header-container">
+            <!-- IMPORTANT: Replace 'path/to/your/logo-b.svg' with your actual logo file -->
+            <img src="https://raw.githubusercontent.com/user-attachments/assets/515a452d-9486-4f36-9b51-246e6a146e29" alt="Blueprint Community Logo" class="logo">
+        </div>
+    </header>
+
+    <main>
+        <!-- ======== HERO SECTION ======== -->
+        <section id="hero">
+            <!-- IMPORTANT: Replace this with your own video file -->
+            <video class="hero-video-bg" autoplay muted loop playsinline>
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-calm-river-with-abundant-vegetation-on-the-shores-42211-large.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="hero-content">
+                <h1>Find Your Purpose. Amplify Your Impact.</h1>
+                <p>An exclusive, accountability-driven circle for entrepreneurs committed to transforming their lives and their businesses.</p>
+                <p class="tagline">live a PURPOSE-Driven Life</p>
+                <a href="#join" class="cta-button">Begin Your Journey</a>
+            </div>
+        </section>
+
+        <!-- ======== ABOUT SECTION ======== -->
+        <section id="about">
+            <div class="floating-elements">
+                <div class="floating-shape"></div>
+                <div class="floating-shape"></div>
+            </div>
+            <div class="container">
+                <h2 class="scroll-reveal">Are You Building a Business, or a Legacy?</h2>
+                <div class="about-grid">
+                    <div class="about-text scroll-reveal">
+                        <h3>The Challenge</h3>
+                        <p>The entrepreneurial path can be isolating. You achieve success, but feel a sense of emptiness. You have goals, but lack a deeper <em>why</em>. You're surrounded by people, but crave a circle that truly understands and elevates you.</p>
+                        <h3>The Solution</h3>
+                        <p>We believe the greatest tragedy isn't failure, but a life without purpose. Blueprint Community was founded to create a filtered, high-commitment environment where successful entrepreneurs inspire, support, and challenge each other to build lives of meaning and significant impact.</p>
+                    </div>
+                    <div class="about-image-container scroll-reveal">
+                         <!-- IMPORTANT: Replace this placeholder image -->
+                        <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2832&auto=format&fit=crop" alt="Entrepreneurs in discussion" class="about-image">
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ======== VALUES SECTION ======== -->
+        <section id="values">
+            <div class="container">
+                <h2 class="scroll-reveal">Our Guiding Principles</h2>
+                <div class="values-grid">
+                    <div class="value-item scroll-reveal">
+                        <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg></div>
+                        <h3>Keep the Bar High</h3>
+                        <p>We pursue excellence in all aspects of life and business.</p>
+                    </div>
+                    <div class="value-item scroll-reveal" style="transition-delay: 0.1s;">
+                        <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></div>
+                        <h3>A Family Heart</h3>
+                        <p>We support each other with compassion, trust, and genuine care.</p>
+                    </div>
+                    <div class="value-item scroll-reveal" style="transition-delay: 0.2s;">
+                        <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><polyline points="17 11 19 13 23 9"></polyline></svg></div>
+                        <h3>Commit or Penalize</h3>
+                        <p>We hold ourselves and each other accountable to our goals.</p>
+                    </div>
+                    <div class="value-item scroll-reveal" style="transition-delay: 0.3s;">
+                        <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+                        <h3>Win Together</h3>
+                        <p>We celebrate each other's successes as our own.</p>
+                    </div>
+                     <div class="value-item scroll-reveal" style="transition-delay: 0.4s;">
+                        <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></div>
+                        <h3>Praise & Recognise</h3>
+                        <p>We actively acknowledge the growth and contributions of every member.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======== CORRECTED IMPACT SECTION ======== -->
+        <section id="impact">
+            <div class="floating-elements">
+                <div class="floating-shape"></div>
+            </div>
+            <div class="container impact-container">
+                <div class="impact-text-content scroll-reveal">
+                    <h2>Your Impact Starts Within</h2>
+                    <p>Our strong system and accountability circles are the catalyst. Your transformation is the stone cast into the water, creating waves of positive change that extend far beyond yourself.</p>
+                </div>
+        
+                <div class="ripple-area scroll-reveal">
+                    <div class="ripple-graphic">
+                        <svg class="ripple-svg" viewBox="0 0 400 400">
+                            <circle class="ripple-1" cx="200" cy="200" r="80"></circle>
+                            <circle class="ripple-2" cx="200" cy="200" r="80"></circle>
+                            <circle class="ripple-3" cx="200" cy="200" r="80"></circle>
+                        </svg>
+                    </div>
+                    <div class="ripple-labels">
+                        <div class="label-center">
+                            <strong>Purpose-Driven Entrepreneur</strong>
+                            <p>Clarity, Growth, Fulfillment</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ======== JOIN SECTION ======== -->
+        <section id="join">
+            <div class="container join-content">
+                <h2 class="scroll-reveal">Membership is a Commitment to Growth</h2>
+                <p class="scroll-reveal">We are not for everyone. Our strength lies in "strong filtering" to ensure every member is aligned in character, commitment, and chemistry. Our process is designed to find entrepreneurs who are ready to give as much as they receive.</p>
+
+                <ol class="join-steps">
+                    <li class="join-step-item">
+                        <strong>Step 1: Inquiry</strong>
+                        <p>Express your interest by filling out the form below. Let us know why you believe Blueprint is the right community for you.</p>
+                    </li>
+                    <li class="join-step-item">
+                        <strong>Step 2: Chemistry Interviews</strong>
+                        <p>Engage in three separate interviews with our core members. This is a mutual discovery process to ensure alignment and fit.</p>
+                    </li>
+                    <li class="join-step-item">
+                        <strong>Step 3: Commitment</strong>
+                        <p>Upon acceptance, members commit to our values, active participation, and a financial deposit that underscores our shared journey.</p>
+                    </li>
+                </ol>
+
+                <form class="join-form scroll-reveal" action="#"> <!-- Action would point to a form handler -->
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <input type="text" name="linkedin" placeholder="Link to Business or LinkedIn Profile" required>
+                    <textarea name="message" placeholder="In a few sentences, why are you seeking a purpose-driven community?" required></textarea>
+                    <button type="submit" class="cta-button submit-button">Submit Inquiry</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- ======== FOOTER ======== -->
+    <footer>
+        <div class="container footer-container">
+            <!-- IMPORTANT: Replace with your logo file -->
+            <img src="https://raw.githubusercontent.com/user-attachments/assets/515a452d-9486-4f36-9b51-246e6a146e29" alt="Blueprint Community Logo" class="footer-logo">
+            <p class="tagline">live a PURPOSE-Driven Life</p>
+            <div class="social-link">
+                <!-- Instagram Icon (SVG) -->
+                <a href="https://instagram.com/blueprint.community_" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                </a>
+            </div>
+            <p class="copyright">© 2024 Blueprint Community. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- SCRIPT FOR SCROLLED HEADER ---
+            const header = document.getElementById('main-header');
+            if (header) {
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 50) {
+                        header.classList.add('scrolled');
+                    } else {
+                        header.classList.remove('scrolled');
+                    }
+                });
+            }
+
+            // --- SCRIPT FOR SCROLL REVEAL ANIMATIONS ---
+            const scrollObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, {
+                rootMargin: '0px',
+                threshold: 0.15 
+            });
+            
+            // Observe general scroll-reveal elements
+            document.querySelectorAll('.scroll-reveal').forEach(el => {
+                scrollObserver.observe(el);
+            });
+
+            // Staggered animation for the Join steps
+            const joinSteps = document.querySelectorAll('.join-step-item');
+            joinSteps.forEach((step) => {
+                scrollObserver.observe(step);
+            });
+        });
+    </script>
+
+</body>
+</html>
